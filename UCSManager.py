@@ -138,14 +138,15 @@ class MyWindow(QMainWindow, form_class):
         success_ucs_id = ""
 
         ucs_id_list = self.ucsListBox.text()
-        ucs_id_list = ucs_id_list.split(",")
-        for ucs_id in ucs_id_list:
-            if ucs_id != "":
-                ucs_id = self.addUCS(ucs_id)
-                if ucs_id != -1:
-                    success_ucs_id += (ucs_id + ", ")
-        self.getUCSList()
-        self.logText.setText("Add UCS Successfully. Success UCS No - " + success_ucs_id[:-2])
+        if ucs_id_list != "":
+            ucs_id_list = ucs_id_list.split(",")
+            for ucs_id in ucs_id_list:
+                if ucs_id != "":
+                    ucs_id = self.addUCS(ucs_id)
+                    if ucs_id != -1:
+                        success_ucs_id += (ucs_id + ", ")
+            self.getUCSList()
+            self.logText.setText("Add UCS Successfully. Success UCS No - " + success_ucs_id[:-2])
 
     def addUCSFromSearchBox(self):
         idx = self.searchResultBox.currentIndex()

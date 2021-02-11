@@ -303,7 +303,9 @@ class MyWindow(QMainWindow, form_class):
         artist = self.stepArtistBox.text()
         level = self.stepLevelBox.text()
 
-        def searchUcsFromTitle(url):
+        self.logText.setText(f"Searching UCS based on Title : {title} / StepArtist : {artist}.")
+
+        def searchUcs(url):
             ucs = requests.get(url)
             ucs_parsed = BeautifulSoup(ucs.text, "lxml")
             total_page = ucs_parsed.find(class_="share_board_info_text")
@@ -338,23 +340,32 @@ class MyWindow(QMainWindow, form_class):
                     try:
                         next_search = ucs_parsed.find(class_="pg_page pg_end")
                         url = "http://www.piugame.com/bbs" + next_search['href'][1:-1]
-                        searchUcsFromTitle(url)
+                        searchUcs(url)
                     except:
                         return
 
         if title != '':
-            searchUcsFromTitle(f"http://www.piugame.com/bbs/board.php?bo_table=ucs&sfl=ucs_song_no&stx={title}&page=")
+            if len(title) < 3:
+                self.logText.setText("Enter SongTitle more than 3 letters.")
+                return
+            else:
+                searchUcs(f"http://www.piugame.com/bbs/board.php?bo_table=ucs&sfl=ucs_song_no&stx={title}&page=")
+        elif artist != '':
+            searchUcs(f"http://www.piugame.com/bbs/board.php?bo_table=ucs&sfl=wr_name&stx={artist}&page=")
         else:
-            self.logText.setText("Enter SongTitle.")
+            self.logText.setText("Enter SongTitle or StepArtist.")
             return
 
         if len(ucs_list_arr) != 0:
             for arr in ucs_list_arr:
-                if artist.lower() in arr[2].lower():
-                    if level.lower() in arr[3].lower():
-                        self.final_ucs_list_arr.append(arr)
-                        self.searchResultBox.addItem(f"{arr[0]} - {arr[1]} {arr[3]} - {arr[2]}")
-                        self.resultAddButton.setEnabled(True)
+                if title.lower() in arr[1].lower():
+                    if artist.lower() in arr[2].lower():
+                        if level.lower() in arr[3].lower():
+                            self.final_ucs_list_arr.append(arr)
+                            self.searchResultBox.addItem(f"{arr[0]} - {arr[1]} {arr[3]} - {arr[2]}")
+                            self.resultAddButton.setEnabled(True)
+        else:
+            self.logText.setText("No results were found.")
 
 
 if __name__ == "__main__":

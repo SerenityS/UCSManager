@@ -322,7 +322,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Build U.C.S Pack</string>
+      <string>Build UCS Pack</string>
      </property>
     </widget>
     <widget class="QLabel" name="songInfo1">

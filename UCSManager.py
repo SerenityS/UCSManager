@@ -5,6 +5,7 @@ import requests
 import sys
 
 from bs4 import BeautifulSoup
+from configparser import ConfigParser
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
@@ -34,6 +35,9 @@ form_class = uic.loadUiType(form)[0]
 
 class MyWindow(QMainWindow, form_class):
     ucs_api_url = "http://www.piugame.com/piu.ucs/ucs.share/ucs.share.ajax.php"
+
+    isSave = False
+    config = ConfigParser()
 
     ucs_no = 0
     final_ucs_list_arr = []
@@ -67,6 +71,9 @@ class MyWindow(QMainWindow, form_class):
 
         self.idBox.setFocus()
 
+        self.loadConfig()
+        self.isSaveAccount.stateChanged.connect(self.mgrAccount)
+
     def closeEvent(self, event):
         result = QMessageBox.question(self, 'Are you sure to Exit?',
                                       "UCS Manager를 종료하시겠습니까?", QMessageBox.Yes |
@@ -81,6 +88,31 @@ class MyWindow(QMainWindow, form_class):
             self.loginButton.click()
         else:
             self.pwBox.setFocus()
+
+    def loadConfig(self):
+        self.config.read("settings.conf")
+        if eval(self.config['Settings']['isSaveAccount']):
+            self.isSave = True
+            self.idBox.setText(self.config['Account']['id'])
+            self.pwBox.setText(self.config['Account']['pw'])
+            self.isSaveAccount.setChecked(True)
+            self.Login()
+
+    def mgrAccount(self):
+        if self.isSaveAccount.isChecked():
+            self.isSave = True
+            self.logText.setText("Automatically Login when UCS Manager starts.")
+        else:
+            self.isSave = False
+            self.config.set("Settings", "isSaveAccount", "False")
+            self.config.set('Account', 'id', "null")
+            self.config.set('Account', 'pw', "null")
+            self.writeConf()
+            self.logText.setText("Do Not Automatically Login when UCS Manager starts.")
+
+    def writeConf(self):
+        with open('settings.conf', 'w') as conf:
+            self.config.write(conf)
 
     def addUCS(self, ucs_id):
         if ucs_id != '':
@@ -229,6 +261,12 @@ class MyWindow(QMainWindow, form_class):
             nick = piu_parsed.find(class_="outGameid").text.strip()
             self.loginStatus.setText(f"Login Status : {nick}")
             self.logText.setText(f"Successfully Login via {nick}.")
+
+            if self.isSave:
+                self.config.set("Settings", "isSaveAccount", "True")
+                self.config.set('Account', 'id', piu_id)
+                self.config.set('Account', 'pw', piu_pw)
+                self.writeConf()
 
             self.ucsListAddButton.setEnabled(True)
             self.searchButton.setEnabled(True)

@@ -332,8 +332,12 @@ class MyWindow(QMainWindow, form_class):
                     ucslv = ucs_list_parsed[j].find(class_="share_level").find("span")['class']
                     if "single" in ucslv[0]:
                         ucslv = "S" + ucslv[1][4:]
-                    else:
+                    elif "sinper" in ucslv[0]:
+                        ucslv = "SP" + ucslv[1][4:]
+                    elif "double" in ucslv[0]:
                         ucslv = "D" + ucslv[1][4:]
+                    else:
+                        ucslv = "DP" + ucslv[1][4:]
                     ucs_list_arr.append([ucsno, songtitle, stepmaker, ucslv])
 
                 if i == total_page:

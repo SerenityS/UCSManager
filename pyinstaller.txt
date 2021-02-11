@@ -1,0 +1,1 @@
+pyinstaller UCSManager.py --onefile --add-data "C:\Users\qwertycvb\PycharmProjects\UCSChanger\venv\Lib\site-packages\qt_material\;.\qt_material" --add-data "UCSManager.ui;." --add-data "icon.png;." --icon icon.ico -w

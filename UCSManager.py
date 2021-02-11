@@ -42,7 +42,7 @@ class MyWindow(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setFixedSize(511, 1010)
+        self.setFixedSize(501, 1010)
         self.setWindowIcon(QIcon(resource_path('icon.png')))
         initLoginSession()
 

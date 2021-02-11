@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1151</width>
+    <width>511</width>
     <height>1002</height>
    </rect>
   </property>
@@ -116,6 +116,9 @@
      </property>
      <property name="text">
       <string>Login Status : Not Logged In</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <zorder>idBox</zorder>
@@ -539,7 +542,7 @@
       <string>Song Title</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="levelBox">
+    <widget class="QLineEdit" name="stepLevelBox">
      <property name="geometry">
       <rect>
        <x>400</x>
@@ -588,7 +591,7 @@
     <property name="title">
      <string>Add UCS</string>
     </property>
-    <widget class="QLineEdit" name="ucsBox">
+    <widget class="QLineEdit" name="ucsListBox">
      <property name="geometry">
       <rect>
        <x>12</x>
@@ -609,7 +612,7 @@
       <string>UCSNo, ㆍㆍㆍ , UCSNo</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="addButton">
+    <widget class="QPushButton" name="ucsListAddButton">
      <property name="geometry">
       <rect>
        <x>12</x>
@@ -674,11 +677,11 @@
   <tabstop>idBox</tabstop>
   <tabstop>pwBox</tabstop>
   <tabstop>loginButton</tabstop>
-  <tabstop>ucsBox</tabstop>
-  <tabstop>addButton</tabstop>
+  <tabstop>ucsListBox</tabstop>
+  <tabstop>ucsListAddButton</tabstop>
   <tabstop>songTitleBox</tabstop>
   <tabstop>stepArtistBox</tabstop>
-  <tabstop>levelBox</tabstop>
+  <tabstop>stepLevelBox</tabstop>
   <tabstop>searchResultBox</tabstop>
   <tabstop>searchButton</tabstop>
   <tabstop>resultAddButton</tabstop>

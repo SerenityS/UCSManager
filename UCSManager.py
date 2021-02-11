@@ -67,6 +67,15 @@ class MyWindow(QMainWindow, form_class):
 
         self.idBox.setFocus()
 
+    def closeEvent(self, event):
+        result = QMessageBox.question(self, 'Are you sure to Exit?',
+                                      "UCS Manager를 종료하시겠습니까?", QMessageBox.Yes |
+                                      QMessageBox.No, QMessageBox.No)
+        if result == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+
     def focusEvent(self):
         if self.pwBox.text():
             self.loginButton.click()

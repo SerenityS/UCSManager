@@ -363,12 +363,11 @@ class MyWindow(QMainWindow, form_class):
 
         if len(ucs_list_arr) != 0:
             for arr in ucs_list_arr:
-                if title.lower() in arr[1].lower():
-                    if artist.lower() in arr[2].lower():
-                        if level.lower() in arr[3].lower():
-                            self.final_ucs_list_arr.append(arr)
-                            self.searchResultBox.addItem(f"{arr[0]} - {arr[1]} {arr[3]} - {arr[2]}")
-                            self.resultAddButton.setEnabled(True)
+                if artist.lower() in arr[2].lower():
+                    if level.lower() in arr[3].lower():
+                        self.final_ucs_list_arr.append(arr)
+                        self.searchResultBox.addItem(f"{arr[0]} - {arr[1]} {arr[3]} - {arr[2]}")
+                        self.resultAddButton.setEnabled(True)
         else:
             self.logText.setText("No results were found.")
 

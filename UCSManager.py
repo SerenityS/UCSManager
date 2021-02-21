@@ -337,8 +337,10 @@ class MyWindow(QMainWindow, form_class):
                         ucslv = "SP" + ucslv[1][4:]
                     elif "double" in ucslv[0]:
                         ucslv = "D" + ucslv[1][4:]
-                    else:
+                    elif "douper" in ucslv[0]:
                         ucslv = "DP" + ucslv[1][4:]
+                    else:
+                        ucslv = "CO-OPx" + ucslv[1][5:]
                     ucs_list_arr.append([ucsno, songtitle, stepmaker, ucslv])
 
                 if i == total_page:
